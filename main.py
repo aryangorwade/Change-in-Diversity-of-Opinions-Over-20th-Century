@@ -1,7 +1,6 @@
 from flair.models import TextClassifier
 from flair.data import Sentence
 from nltk.corpus import PlaintextCorpusReader
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 
 # TODO: recheck program; results vary from before
@@ -9,7 +8,6 @@ import matplotlib.pyplot as plt
 
 def sentiment_analyze(category):
     corpus_root = r"C:\Users\user\PycharmProjects\NLP_Proj\data_categorized" + category
-    analyzer = SentimentIntensityAnalyzer()
     flair_sentiment = TextClassifier.load('en-sentiment')
 
     scores = []
@@ -24,6 +22,7 @@ def sentiment_analyze(category):
         sents = reader.sents()
         sents1 = [[' '.join(i)] for i in sents]
         opinions = 0
+        disp = 0
 
         for x in sents1:
             sentence = Sentence(x)
@@ -32,7 +31,11 @@ def sentiment_analyze(category):
             # TODO: change this block of code with flair
             if "POSITIVE" in str(score) or "NEGATIVE" in str(score):
                 opinions = opinions + 1
-                print("opinion")
+                disp = disp + 1
+                if disp >= 100:
+                    disp = 0
+                print(disp)
+
         numchars = len([char for sentence in reader.sents() for word in sentence for char in word])
         score = opinions / numchars
         scores.append(score)
@@ -40,6 +43,7 @@ def sentiment_analyze(category):
 
     temp = corpus_root + r"\2000s"
     counter = 1
+    disp = 0
 
     reader = PlaintextCorpusReader(temp, '.*')
     sents = reader.sents()
@@ -53,7 +57,10 @@ def sentiment_analyze(category):
         # TODO: change this block of code with flair
         if "POSITIVE" in str(score) or "NEGATIVE" in str(score):
             opinions = opinions + 1
-            print("opinion") # print an int that resets every 100 times it increments itself so that u dont run out of memory
+            disp = disp + 1
+            if disp >= 100:
+                disp = 0
+            print(disp)
 
     numchars = len([char for sentence in reader.sents() for word in sentence for char in word])
     score = opinions / numchars
