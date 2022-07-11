@@ -1,9 +1,11 @@
+# Flair does not give neutral values, so do NOT use
+
 from flair.models import TextClassifier
 from flair.data import Sentence
 from nltk.corpus import PlaintextCorpusReader
 import matplotlib.pyplot as plt
 
-# TODO: recheck program; results vary from before
+# recheck program; results vary from before
 # compare opinions to clauses?
 
 def sentiment_analyze(category):
@@ -28,7 +30,6 @@ def sentiment_analyze(category):
             sentence = Sentence(x)
             flair_sentiment.predict(sentence)
             score = sentence.labels[0]
-            # TODO: change this block of code with flair
             if "POSITIVE" in str(score) or "NEGATIVE" in str(score):
                 opinions = opinions + 1
                 disp = disp + 1
@@ -42,7 +43,6 @@ def sentiment_analyze(category):
         counter = counter + 1
 
     temp = corpus_root + r"\2000s"
-    counter = 1
     disp = 0
 
     reader = PlaintextCorpusReader(temp, '.*')
@@ -54,7 +54,6 @@ def sentiment_analyze(category):
         sentence = Sentence(x)
         flair_sentiment.predict(sentence)
         score = sentence.labels[0]
-        # TODO: change this block of code with flair
         if "POSITIVE" in str(score) or "NEGATIVE" in str(score):
             opinions = opinions + 1
             disp = disp + 1
