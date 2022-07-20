@@ -1,21 +1,25 @@
-# Flair does not give neutral values, so do NOT use
-
-from flair.models import TextClassifier
-from flair.data import Sentence
+from textblob import TextBlob
 from nltk.corpus import PlaintextCorpusReader
 import matplotlib.pyplot as plt
+import re
+import time
 
-# recheck program; results vary from before
-# compare opinions to clauses?
+def getSubjectivity(text):
+    return TextBlob(text).sentiment.subjectivity
+
+def clean(sentence):
+    result = re.sub(r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''',
+        " ", sentence)
+    result1 = re.sub('@ ', '', result)
+    return result1
 
 def sentiment_analyze(category):
     corpus_root = r"C:\Users\user\PycharmProjects\NLP_Proj\data_categorized" + category
-    flair_sentiment = TextClassifier.load('en-sentiment')
-
     scores = []
 
     year = r"\19"
     counter = 0
+    at = 0
 
     for x in range(10):
         temp = corpus_root + year + str(counter) + "0s"
@@ -24,48 +28,38 @@ def sentiment_analyze(category):
         sents = reader.sents()
         sents1 = [[' '.join(i)] for i in sents]
         opinions = 0
-        disp = 0
+        num_clauses = 0
 
         for x in sents1:
-            sentence = Sentence(x)
-            flair_sentiment.predict(sentence)
-            score = sentence.labels[0]
-            if "POSITIVE" in str(score) or "NEGATIVE" in str(score):
+            cleaned = clean(x[0])
+            sentiment_dict = getSubjectivity(cleaned)
+            if sentiment_dict > 0.25:
                 opinions = opinions + 1
-                disp = disp + 1
-                if disp >= 100:
-                    disp = 0
-                print(disp)
 
-        numchars = len([char for sentence in reader.sents() for word in sentence for char in word])
-        score = opinions / numchars
+        score = opinions / len(reader.sents())
         scores.append(score)
         counter = counter + 1
 
     temp = corpus_root + r"\2000s"
-    disp = 0
 
     reader = PlaintextCorpusReader(temp, '.*')
     sents = reader.sents()
     sents1 = [[' '.join(i)] for i in sents]
     opinions = 0
+    num_clauses = 0
 
     for x in sents1:
-        sentence = Sentence(x)
-        flair_sentiment.predict(sentence)
-        score = sentence.labels[0]
-        if "POSITIVE" in str(score) or "NEGATIVE" in str(score):
+        cleaned = clean(x[0])
+        sentiment_dict = getSubjectivity(cleaned)
+        if sentiment_dict > 0.25:
             opinions = opinions + 1
-            disp = disp + 1
-            if disp >= 100:
-                disp = 0
-            print(disp)
 
-    numchars = len([char for sentence in reader.sents() for word in sentence for char in word])
-    score = opinions / numchars
+    score = opinions / len(reader.sents())
     scores.append(score)
-
     return scores
+
+start_time  = time.time()
+print("Started running at: " + str(start_time))
 
 fiction_scores = sentiment_analyze(r"\Fiction")
 magazine_scores = sentiment_analyze(r"\Magazine")
@@ -76,9 +70,10 @@ plt.plot(years, fiction_scores, label="Fiction")
 plt.plot(years, magazine_scores, label="Magazine")
 plt.plot(years, newspaper_scores, label="Newspaper")
 plt.xlabel("Years")
-plt.ylabel("Ratio of Opinions to Chars")
-plt.title("Ratio of Opinions to Chars Over the 20th Century")
+plt.ylabel("Ratio of Opinions to Sentences")
+plt.title("Ratio of Opinions to Sentences Over the 20th Century (TextBlob)")
 plt.legend()
 plt.show()
 
-
+print("Stopped running at: " + str(time.time()))
+print("Program took", str(time.time() - start_time), "to run.")
