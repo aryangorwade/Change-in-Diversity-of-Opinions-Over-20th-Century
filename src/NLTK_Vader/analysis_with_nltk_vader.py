@@ -17,7 +17,7 @@ def clean(sentence):
 
 
 def sentiment_analyze(category):
-    corpus_root = r"C:\Users\user\PycharmProjects\NLP_Proj\data_categorized" + category # Change address
+    corpus_root = r"C:\Users\user\PycharmProjects\NumOpinionsOver20thCentury\data_categorized" + category # Change address
     sentiment = SentimentIntensityAnalyzer()
     scores = []
 
