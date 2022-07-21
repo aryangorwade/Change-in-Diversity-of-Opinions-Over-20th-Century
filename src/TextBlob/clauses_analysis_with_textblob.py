@@ -19,7 +19,7 @@ def clean(sentence):
     return result1
 
 def sentiment_analyze(category):
-    corpus_root = r"C:\Users\user\PycharmProjects\NumOpinionsOver20thCentury\data_categorized" + category
+    corpus_root = r"C:\Users\user\PycharmProjects\NumOpinionsOver20thCentury\data_categorized" + category # Change as per folder location
     scores = []
 
     year = r"\19"
