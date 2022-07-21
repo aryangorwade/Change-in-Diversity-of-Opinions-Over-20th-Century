@@ -17,7 +17,7 @@ The data was downloaded as "Linear Text" for "COHA."
 To run the project, change the value of the corpus_root string in "def sentiment_analyze (category):". "C:\Users\user\PycharmProjects\" will have to be changed 
 according to where the project is stored. The rest of corpus_root does not have to be changed as the dataset is included in the project files.
 
-According to the results, the “diversity of ideas” in the areas of fiction, magazine, and newspaper overall decreased over the span of the 20th century. See the images in the Textblob folder in src for more detailed graphs. 
+According to the results, the “diversity of ideas” in the areas of fiction, magazine, and newspaper decreased overall over the span of the 20th century. See the images in the Textblob folder in src for more detailed graphs. 
 
 Credit: 
 The algorithm used for splitting sentences into clauses was adapted from original code posted to 
