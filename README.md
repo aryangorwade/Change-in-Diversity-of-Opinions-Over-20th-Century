@@ -1,6 +1,5 @@
 This project attempts to quantify change in the “diversity of ideas” in large historical corpus over the past century. It uses machine learning libraries like 
-TextBlob and NLTK's VADER to classify sentences or clauses as opinionated ones. For every decade, the program then calculates the total number of opinionated sentences/clauses 
-(from the 1900s-2000s) and takes the ratio of that against the total number of sentences or clauses, respectively (if the total number of 
+TextBlob and NLTK's VADER to classify sentences or clauses as opinionated ones. For every decade, the program then calculates the total number of opinionated sentences/clauses (from the 1900s-2000s) and takes the ratio of that against the total number of sentences or clauses, respectively (if the total number of 
 opinionated sentences/clauses were to be counted and a graph were to be constructed on that, it would not be accurate as naturally less texts and therefore less 
 opinionated sentences/clauses are available the further back you go in time.) The program then constructs a graph that displays the ratio of opinionated 
 sentences/clauses to total sentences/clauses for each decade of the 20th century, allowing one to track the change in the amount of opinions over the 20th century. 
@@ -18,6 +17,8 @@ To run the project, change the value of the corpus_root string in "def sentiment
 according to where the project is stored. The rest of corpus_root does not have to be changed as the dataset is included in the project files.
 
 According to the results, the “diversity of ideas” in the areas of fiction, magazine, and newspaper decreased overall over the span of the 20th century. See the images in the Textblob folder in src for more detailed graphs. 
+
+***Note: DreamBig4College is one of my alternate accounts (I realized that I was editing the repository with that account a bit too late). All of the work here is mine, except for the sentence splitting algorithm credited below.***
 
 Credit: 
 The algorithm used for splitting sentences into clauses was adapted from original code posted to 
