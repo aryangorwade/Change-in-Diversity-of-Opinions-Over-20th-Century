@@ -23,4 +23,4 @@ According to the results, the “diversity of ideas” in the areas of fiction, 
 Credit: 
 The algorithm used for splitting sentences into clauses was adapted from original code posted to 
 Stack Overflow: https://stackoverflow.com/questions/65227103/clause-extraction-long-sentence-segmentation-in-python by user 
-polm23 (https://stackoverflow.com/users/355715/polm23). 
+polm23 (https://stackoverflow.com/users/355715/polm23). The model can also be run without the sentence splitter; it is not necessary. 
